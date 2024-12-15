@@ -4,14 +4,17 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
+import requests
+from io import BytesIO
 
 
 
 def load_data():
-        return pd.read_csv("horserace_EDA.csv")  # Replace with your dataset path
+        return pd.read_csv(BytesIO(requests.get("https://github.com/Toqa-Yasser/Horse_Race/blob/main/horseRace.pkl")))
 if 'df' not in st.session_state :
     df = load_data()
-
+if 'modelt' not in st.session_state:
+    model = joblib.load(BytesIO(requests.get('https://github.com/Toqa-Yasser/Horse_Race/blob/main/pipeline.h5')))
 # Function for "WON OR LOSE" Section
 def page1():
     st.title("Predict: WON OR LOSE 🏇 ")
@@ -69,7 +72,6 @@ def page1():
 
     test = getinput()
     if st.button('Predict'):
-        model = joblib.load('pipeline.h5')
         if model.predict(test)[0] :
             st.success(f'The horse is predicted to: WIN')
         else :
