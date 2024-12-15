@@ -8,9 +8,9 @@ import requests
 from io import BytesIO
 
 
-
+@st.cache_data
 def load_data():
-        return pd.read_csv(BytesIO(requests.get("https://github.com/Toqa-Yasser/Horse_Race/blob/main/horseRace.pkl").content))
+        return pd.read_pkl(BytesIO(requests.get("https://github.com/Toqa-Yasser/Horse_Race/blob/main/horseRace.pkl").content))
 if 'df' not in st.session_state :
     df = load_data()
 if 'modelt' not in st.session_state:
