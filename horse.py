@@ -10,11 +10,11 @@ from io import BytesIO
 
 
 def load_data():
-        return pd.read_csv(BytesIO(requests.get("https://github.com/Toqa-Yasser/Horse_Race/blob/main/horseRace.pkl")))
+        return pd.read_csv(BytesIO(requests.get("https://github.com/Toqa-Yasser/Horse_Race/blob/main/horseRace.pkl").content))
 if 'df' not in st.session_state :
     df = load_data()
 if 'modelt' not in st.session_state:
-    model = joblib.load(BytesIO(requests.get('https://github.com/Toqa-Yasser/Horse_Race/blob/main/pipeline.h5')))
+    model = joblib.load(BytesIO(requests.get('https://github.com/Toqa-Yasser/Horse_Race/blob/main/pipeline.h5').content))
 # Function for "WON OR LOSE" Section
 def page1():
     st.title("Predict: WON OR LOSE 🏇 ")
